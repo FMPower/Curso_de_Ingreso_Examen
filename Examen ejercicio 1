@@ -1,0 +1,125 @@
+/*Debemos realizar la carga de una compra de 5(cinco) productos de desinfección 
+de cada una debo obtener los siguientes datos:
+el nombre del producto
+el tipo de producto (validar "ALCOHOL", "IAC" o "QUAT"), 
+el precio (validar entre 100 y 300),
+la cantidad de unidades (no puede ser 0 o negativo y no debe superar las 1000 unidades), 
+el tipo de inflamable("ignífugo", "combustible", "explosivo")
+y la Marca. 
+Se debe Informar al usuario lo siguiente:
+
+	a) El promedio de cantidad por tipo de producto.
+	b) El tipo de inflamable con más cantidad de unidades en total de la compra.
+	c) Cuántas unidades de IAC con precios menos a 200 (inclusive) se compraron en total.
+	d) la marca y tipo del más caro de los productos.
+*/
+function mostrar()
+{
+	var nombreProducto;
+	var tipoProducto;
+	var precio;
+	var unidades;
+	var inflam;
+	var marca;
+	var contadorALCOHOL=0;
+	var contadorUnidALCOHOL=0;
+	var contadorIAC=0;
+	var contadorUnidIAC=0;
+	var contadorQUAT=0;
+	var contadorUnidQUAT=0;
+	var promALCOHOL;
+	var promIAC;
+	var promQUAT;
+	var MaxUnid;
+	var MaxUnidInflam;
+	var unidIACMenos200=0;
+	var MaxPrecio;
+	var MaxPrecioMarca;
+	var MaxPrecioTipo;
+	var i;
+
+	for(i=0; i<5; i++){
+		do{
+			nombreProducto=prompt("Ingrese el nombre del producto.");
+			if(isNaN(nombreProducto)==false){
+				alert("No ingrese numeros.");
+			}
+		}while(isNaN(nombreProducto)==false);
+
+		do{
+			tipoProducto=prompt("¿Que producto de desinfección (ALCOHOL, IAC o QUAT)?");
+			if(tipoProducto!="ALCOHOL"&&tipoProducto!="IAC"&&tipoProducto!="QUAT"){
+				alert("Producto sin identificar.");
+			}
+		}while(tipoProducto!="ALCOHOL"&&tipoProducto!="IAC"&&tipoProducto!="QUAT");
+
+		do{
+			precio=prompt("Indique el precio (100-300).");
+			precio=parseInt(precio);
+			if(precio<100||precio>300){
+				alert("Fuera del rango.");
+			}
+		}while(precio<100||precio>300);
+
+		do{
+			unidades=prompt("Indique las unidades (1-1000).");
+			unidades=parseInt(unidades);
+			if(unidades<=0||unidades>1000){
+				alert("Fuera del rango.");
+			}
+		}while(unidades<=0||unidades>1000);
+
+		do{
+			inflam=prompt("¿Es ignifugo, combustible o explosivo?");
+			if(inflam!="ignifugo"&&inflam!="combustible"&&inflam!="explosivo"){
+				alert("Dato incorrecto.");
+			}
+		}while(inflam!="ignifugo"&&inflam!="combustible"&&inflam!="explosivo");
+
+		do{
+			marca=prompt("Ingrese la marca.");
+			if(isNAN(marca)==false){
+				alert("Intente de nuevo.");
+			}
+		}while(isNAN(marca)==false);
+
+		if(tipoProducto=="ALCOHOL"){
+			contadorALCOHOL++;
+			contadorUnidALCOHOL=contadorUnidALCOHOL+unidades;
+		}else if(tipoProducto=="IAC"){
+			contadorIAC++;
+			contadorUnidIAC=contadorUnidIAC+unidades;
+		}else{
+			contadorQUAT++;
+			contadorUnidQUAT=contadorUnidQUAT+unidades;
+		}
+
+		if(MaxUnid<unidades){
+			MaxUnid=unidades;
+			MaxUnidInflam=inflam;
+		}
+
+		if(tipoProducto=="IAC"&&precio<=200){
+			unidIACMenos200=unidIACMenos200+unidades;
+		}
+
+		if(MaxPrecio<precio){
+			MaxPrecio=precio;
+			MaxPrecioMarca=marca;
+			MaxPrecioTipo=tipoProducto;
+		}
+
+	}
+
+	promALCOHOL=contadorUnidALCOHOL/contadorALCOHOL;
+	promIAC=contadorUnidIAC/contadorIAC;
+	promQUAT=contadorUnidQUAT/contadorQUAT;
+
+	alert("Se compraron un promedio de "+promALCOHOL+" de alcohol, "+promIAC+"de IAC y "+promQUAT+" de QUAT.");
+
+	alert("El tipo de inflamable con mas cantidad de unidades es "+inflam+".");
+
+	alert("El total de unidades de IAC con precios menos a 200 es "+unidIACMenos200+".");
+
+	alert("El producto mas caro es "+MaxPrecioTipo+" de marca "+MaxPrecioMarca+".");
+}
