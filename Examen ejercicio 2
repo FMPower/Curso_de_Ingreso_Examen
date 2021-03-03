@@ -1,0 +1,129 @@
+/*Realizar el algoritmo que permita ingresar los datos de los alumnos de una division de la UTN FRA, los datos solicitados son:
+		nombre
+		Tipo cursada("libre";"presencial";"remota") 
+		cantidad de materias( mas de cero y menos de 8)
+		Sexo ( femenino , masculino , no binario)
+		Nota promedio (entre 0 y 10)
+		edad (validar)
+		se debe informar de existir, o informar que no existe , en el caso que corresponda.	
+			a)
+				El nombre del mejor promedio que no sea masculino.
+			b)
+				El nombre del mas joven de los alumnos entre los que la dan libre.
+			d)
+				El promedio  de nota por sexo.
+			f)
+				La edad y nombre del que cursa mas materias que no sean en forma remota.
+*/
+
+function mostrar()
+{
+	var nombreAlumno;
+	var cursada;
+	var cantidadMaterias;
+	var sexo;
+	var nota;
+	var edad;
+	var mejorPromF;
+	var nombreMejorPromF;
+	var minEdad;
+	var nombreMinEdad;
+	var masc=0;
+	var notaM=0;
+	var promNotaM;
+	var fem=0;
+	var notaF=0;
+	var promNotaF;
+	var maxMaterias;
+	var edadMaxMaterias;
+	var nombreMaxMaterias;
+	var respuesta;
+
+	for (respuesta; respuesta=="si"; respuesta=prompt("Desea continuar.")){
+
+		do{
+			nombreAlumno=prompt("Nombre:");
+			if(isNaN(nombreAlumno)==false){
+				alert("Intente de nuevo");
+			}
+		}while(isNaN(nombreAlumno)==false);
+
+		do{
+			cursada=prompt("Tipo de cursada (libre, presencial o remota)");
+			if(cursada!="libre"&&cursada!="presencial"&&cursada!="remota"){
+				alert("Dato incorrecto.");
+			}
+		}while(cursada!="libre"&&cursada!="presencial"&&cursada!="remota");
+
+		do{
+			cantidadMaterias=prompt("Cantidad de materias:");
+			cantidadMaterias=parseInt(cantidadMaterias);
+			if(cantidadMaterias<=0||cantidadMaterias>=8){
+				alert("Intenta entre 1 a 7");
+			}
+		}while(cursada!="libre"&&cursada!="presencial"&&cursada!="remota");
+
+		do{
+			sexo=prompt("Indique el sexo (m o f).");
+			if(sexo!="m"&&sexo!="f"){
+				alert("Intente de nuevo.");
+			}
+		}while(sexo!="m"&&sexo!="f");
+
+		do{
+			nota=prompt("Nota promedio:");
+			nota=parseInt(nota);
+			if(nota<0||nota>10){
+				alert("Dato incorrecto.");
+			}
+		}while(nota<0||nota>10);
+
+		do{
+			edad=prompt("Edad:");
+			edad=parseInt(edad);
+			if(edad<18){
+				alert("Demaciado joven.");
+			}
+		}while(edad<18);
+
+		if(sexo=="f"&&mejorPromF<nota){
+			mejorPromF=nota;
+			nombreMejorPromF=nombreAlumno;
+		}
+
+		if(minEdad>edad&&cursada=="libre"){
+			minEdad=edad;
+			nombreMinEdad=nombreAlumno;
+		}
+
+		if(sexo=="m"){
+			notaM=notaM+nota;
+			masc++;
+		}else{
+			notaF=notaF+nota;
+			fem++;
+		}
+
+		if(cursada!="remota"&&maxMaterias<cantidadMaterias){
+			maxMaterias=cantidadMaterias;
+			edadMaxMaterias=edad;
+			nombreMaxMaterias=nombreAlumno;
+		}
+
+	}
+
+	if(sexo=="f"){
+		alert("El nombre del mejor promedio femenino es "+nombreMejorPromF+".");
+	}
+
+	if(cursada=="libre"){
+		alert("El mas joven de los que dan libre se llama "+nombreMinEdad+".");
+	}
+
+	promNotaM=notaM/masc;
+	promNotaF=notaF/fem;
+	alert("El promedio masculino es de "+promNotaM+" y el promedio femenino es "+promNotaF+".");
+
+	alert("El que cursa mas materias que no sean en forma remota se llama "+nombreMaxMaterias+" y tiene "+edadMaxMaterias+" años.");
+	
+}
