@@ -1,0 +1,99 @@
+/*Bienvenidos.
+debemos alquilar el servicio de transporte para llegar a Mar del Plata con un grupo de personas, de cada persona debemos optener los siguientes datos:
+Nombre, 
+estado civil ("soltero", "casado" o "viudo"), 
+edad( solo mayores de edad, mas de 17),
+temperatura corporal(validar por favor) 
+y sexo (validar).
+NOTA:el precio por pasajero es de  $600.
+Se debe informar (solo si corresponde):
+a) La cantidad de personas con estado  "viudo" de mas de 60 años. 
+b) el nombre y edad de la mujer soltera mas joven.
+c) cuanto sale el viaje total sin descuento. 
+d) si hay mas del 50% del pasaje que tiene mas de. 60 años , el precio final  tiene  un descuento del 25%, que solo mostramos si corresponde.
+*/
+
+function mostrar()
+{
+	var nombre;
+	var estadoCivil;
+	var edad;
+	var temperaturaCorp;
+	var sexo;
+	var viudoMasSesenta=0;
+	var mSoltJoven;
+	var nombreMSoltJoven;
+	var edadMSoltJoven;
+	var fSoltJoven;
+	var nombreFSoltJoven;
+	var edadFSoltJoven;
+	var respuesta;
+
+	for(respuesta; respuesta=="si"; respuesta=prompt("Desea continuar.")){
+
+		do{
+			nombre=prompt("Nombre:");
+			if(isNaN(nombre)==false){
+				alert("Intente de nuevo.");
+			}
+		}while(isNaN(nombre)==false);
+
+		do{
+			estadoCivil=prompt("Inserte estado civil (soltero, casado o viudo).");
+			if(estadoCivil!="soltero"&&estadoCivil!="casado"&&estadoCivil!="viudo"){
+				alert("Dato invalido.");
+			}
+		}while(estadoCivil!="soltero"&&estadoCivil!="casado"&&estadoCivil!="viudo");
+
+		do{
+			edad=prompt("Inserte edad (solo mayores de edad).");
+			edad=parseInt(edad);
+			if(edad<18){
+				alert("Demaciado joven.");
+			}
+		}while(edad<18);
+
+		do{
+			temperaturaCorp=prompt("Temperatura corporal:");
+			temperaturaCorp=parseInt(temperaturaCorp);
+			if(temperaturaCorp<30||temperaturaCorp>50){
+				alert("Temperatura corporal imprevista.");
+			}
+		}while(temperaturaCorp<30||temperaturaCorp>50);
+
+		do{
+			sexo=prompt("Indique el sexo (m o f).");
+			if(sexo!="m"&&sexo!="f"){
+				alert("Dato invalido.");
+			}
+		}while(sexo!="m"&&sexo!="f");
+
+		if(estadoCivil=="viudo"&&edad>60){
+			viudoMasSesenta++;
+		}
+
+		if(sexo=="m"&&estadoCivil=="soltero"&&mSoltJoven>edad){
+			mSoltJoven=edad;
+			nombreMSoltJoven=nombre;
+			edadMSoltJoven=edad;
+		}else if(sexo=="f"&&estadoCivil=="soltero"&&fSoltJoven>edad){
+			fSoltJoven=edad;
+			nombreFSoltJoven=nombre;
+			edadFSoltJoven=edad;
+		}
+
+	}
+
+	if(estadoCivil=="viudo"&&edad>60){
+		alert("La cantidad de personas con estado viudo de mas de 60 años, es de "+viudoMasSesenta+" personas.");
+	}
+
+	if(estadoCivil=="soltero"&&sexo=="m"){
+		alert("El hombre soltero mas joven es "+nombreMSoltJoven+" de "+edadMSoltJoven+" años.");
+	}
+
+	if(estadoCivil=="soltero"&&sexo=="f"){
+		alert("La mujer soltera mas joven es "+nombreFSoltJoven+" de "+edadFSoltJoven+" años.");
+	}
+
+}
